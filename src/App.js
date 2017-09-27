@@ -15,11 +15,18 @@ class BooksApp extends Component {
     showSearchPage: true,
     allBooks: []
   }
+  
   componentDidMount() {
     BooksAPI.getAll().then(response => {
       this.setState({ allBooks: response })
     })
   }
+
+  filterBookshelf = (bookShelf) => {
+    let {allBooks} = this.state
+    
+  }
+
   render() {
     return (
       <div className="app">
