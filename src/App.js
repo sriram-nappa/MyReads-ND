@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import BookShelf from './BookShelf'
-
+import Search from './Search'
+import SearchPage from './SearchPage'
 import './App.css'
 
 class BooksApp extends Component {
@@ -15,7 +17,7 @@ class BooksApp extends Component {
     showSearchPage: true,
     allBooks: []
   }
-  
+
   componentDidMount() {
     BooksAPI.getAll().then(response => {
       this.setState({ allBooks: response })
@@ -23,27 +25,29 @@ class BooksApp extends Component {
   }
 
   filterBookshelf = (bookShelf) => {
-    let {allBooks} = this.state
-    
+    let { allBooks } = this.state
+
   }
 
   render() {
     return (
       <div className="app">
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <div>
-              <BookShelf bookList={this.state.allBooks}/>
+        <Route exact path='/'  render={() => (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
             </div>
+            <div className="list-books-content">
+              <div>
+                <BookShelf bookList={this.state.allBooks} />
+              </div>
+            </div>
+            <Search />
           </div>
-          <div className="open-search">
-            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-          </div>
-        </div>
-        )}
+        )} />
+        <Route path='/search' render={() => (
+          <SearchPage />
+        )} />
       </div>
     )
   }
