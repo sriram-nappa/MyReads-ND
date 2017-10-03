@@ -4,20 +4,24 @@ import BookshelfOptions from './BookshelfOptions'
 class Books extends Component {
     renderBooks(shelvedBooks) {
         let booksArr = []
-        console.log('Bok render', shelvedBooks)
         booksArr = shelvedBooks.map(book => (
-            <div className="book" key={book.title}>
-                <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                    <BookshelfOptions/>
+            <li key={book.id}>
+                <div className="book" key={book.id}>
+                    <div className="book-top">
+                        {
+                            console.log(book)
+                        }
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail || book.imageLinks.smallThumbnail : ''})` }}></div>
+                        <BookshelfOptions/>
+                    </div>
+                    <div className="book-title">{book.title}</div>
+                    <div className="book-authors">
+                        {
+                            book.authors ? book.authors.join(', ') : ''
+                        }
+                    </div>
                 </div>
-                <div className="book-title">{book.title}</div>
-                <div className="book-authors">
-                    {
-                        book.authors.join(', ')
-                    }
-                </div>
-            </div>
+            </li>
         ))
         return booksArr
     }
@@ -27,15 +31,13 @@ class Books extends Component {
         if (shelvedBooks && shelvedBooks.length) {
             console.log('In')
             return (
-                <div className="books-wrapper">
+                <ol className="books-grid">                
                     {this.renderBooks(shelvedBooks)}
-                </div>
+                </ol>
             )
         }
         else
-            return (
-                <div> Loading .... </div>
-            )
+            return null
     }
 }
 

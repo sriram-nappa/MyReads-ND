@@ -114,6 +114,7 @@ body, .app {
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .books-grid li {
   padding: 10px 15px;
   text-align: left;
@@ -121,11 +122,6 @@ body, .app {
 
 .book {
   width: 140px;
-  margin-left: 25px;
-}
-
-.books-wrapper {
-  display: flex;
 }
 
 .book-title,

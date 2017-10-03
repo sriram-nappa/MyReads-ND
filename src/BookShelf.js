@@ -31,27 +31,15 @@ class BookShelf extends Component {
                 {/* Currently Reading, Want To Read, Read */}
                 <h2 className="bookshelf-title">Currently Reading</h2>
                 <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        <li>
-                            <Books shelvedBooks={shelvedBooks.currentlyReading}/>
-                        </li>
-                    </ol>
+                    <Books shelvedBooks={shelvedBooks.currentlyReading}/>
                 </div>
                 <h2 className="bookshelf-title">Want To Read</h2>
                 <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        <li>
-                            <Books shelvedBooks={shelvedBooks.wantToRead}/>
-                        </li>
-                    </ol>
+                    <Books shelvedBooks={shelvedBooks.wantToRead}/>
                 </div>
                 <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        <li>
-                            <Books shelvedBooks={shelvedBooks.read}/>
-                        </li>
-                    </ol>
+                    <Books shelvedBooks={shelvedBooks.read}/>
                 </div>
             </div>
         )
