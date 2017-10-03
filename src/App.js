@@ -17,7 +17,7 @@ class BooksApp extends Component {
        * pages, as well as provide a good URL they can bookmark and share.
        */
       showSearchPage: true,
-      allBooks: []
+      allBooks: {}
     }
   }
 
@@ -30,7 +30,9 @@ class BooksApp extends Component {
       this.setState({allBooks : response})
     })
   }
+
   render() {
+    console.log(this.state.allBooks)
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -39,9 +41,7 @@ class BooksApp extends Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <div>
                 <BookShelf bookList={this.state.allBooks} />
-              </div>
             </div>
             <Search />
           </div>

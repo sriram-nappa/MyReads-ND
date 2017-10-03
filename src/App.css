@@ -121,7 +121,13 @@ body, .app {
 
 .book {
   width: 140px;
+  margin-left: 25px;
 }
+
+.books-wrapper {
+  display: flex;
+}
+
 .book-title,
 .book-authors {
   font-size: 0.8em;

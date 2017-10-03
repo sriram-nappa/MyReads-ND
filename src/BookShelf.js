@@ -25,6 +25,7 @@ class BookShelf extends Component {
 
     render() {
         let {shelvedBooks} = this.state
+        console.log(shelvedBooks)
         return (
             <div className="bookshelf">
                 {/* Currently Reading, Want To Read, Read */}
