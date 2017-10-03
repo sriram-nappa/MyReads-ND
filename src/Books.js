@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import BookshelfOptions from './BookshelfOptions'
 
+
 class Books extends Component {
+    constructor(props) {
+        super(props)
+    }
     renderBooks(shelvedBooks) {
         let booksArr = []
         booksArr = shelvedBooks.map(book => (
@@ -11,7 +15,7 @@ class Books extends Component {
                         {
                             console.log(book)
                         }
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail || book.imageLinks.smallThumbnail : ''})` }}></div>
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail || book.imageLinks.smallThumbnail : this.props.noimageURL})` }}></div>
                         <BookshelfOptions/>
                     </div>
                     <div className="book-title">{book.title}</div>
@@ -41,4 +45,7 @@ class Books extends Component {
     }
 }
 
+Books.defaultProps = {
+    noimageURL : 'http://via.placeholder.com/128x193?text=No%20Cover'   
+}
 export default Books

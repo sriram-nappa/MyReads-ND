@@ -10,7 +10,9 @@ class SearchPage extends Component {
             bookList: []
         }
         this.searchBooks = this.searchBooks.bind(this)
+        this.redirectPage = this.redirectPage.bind(this)
     }
+    
     searchBooks(e) {
         let {maxResults} = this.state
         let searchIndex = e.target.value
@@ -20,6 +22,12 @@ class SearchPage extends Component {
                     console.log(response)
                     this.setState({bookList: response})
                 })
+        else
+            this.setState({bookList: []})
+    }
+
+    redirectPage() {
+
     }
 
     render() {
@@ -27,7 +35,7 @@ class SearchPage extends Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+                    <a className="close-search" onClick={() => this.redirectPage()}>Close</a>
                     <div className="search-books-input-wrapper">
                         {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
