@@ -6,9 +6,8 @@ class BookShelf extends Component {
         shelvedBooks: {}
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(this.props.bookList.length !== nextProps.bookList.length)
-            this.filterBookshelf(nextProps.bookList)
+    componentWillMount() {
+        this.filterBookshelf(this.props.bookList)
     }
 
     filterBookshelf = (bookList) => {
@@ -25,21 +24,22 @@ class BookShelf extends Component {
 
     render() {
         let {shelvedBooks} = this.state
+        let {updateShelf} = this.props
         console.log(shelvedBooks)
         return (
             <div className="bookshelf">
                 {/* Currently Reading, Want To Read, Read */}
                 <h2 className="bookshelf-title">Currently Reading</h2>
                 <div className="bookshelf-books">
-                    <Books shelvedBooks={shelvedBooks.currentlyReading}/>
+                    <Books shelvedBooks={shelvedBooks.currentlyReading} updateShelf={updateShelf}/>
                 </div>
                 <h2 className="bookshelf-title">Want To Read</h2>
                 <div className="bookshelf-books">
-                    <Books shelvedBooks={shelvedBooks.wantToRead}/>
+                    <Books shelvedBooks={shelvedBooks.wantToRead} updateShelf={updateShelf}/>
                 </div>
                 <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
-                    <Books shelvedBooks={shelvedBooks.read}/>
+                    <Books shelvedBooks={shelvedBooks.read} updateShelf={updateShelf}/>
                 </div>
             </div>
         )

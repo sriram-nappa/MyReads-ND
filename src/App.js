@@ -1,27 +1,21 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+
 import BookShelf from './BookShelf'
-import Search from './Search'
 import SearchPage from './SearchPage'
 import './App.css'
 
 class BooksApp extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      /**
-       * TODO: Instead of using this state variable to keep track of which page
-       * we're on, use the URL in the browser's address bar. This will ensure that
-       * users can use the browser's back and forward buttons to navigate between
-       * pages, as well as provide a good URL they can bookmark and share.
-       */
-      allBooks: {}
-    }
+    this.state = BooksAPI.getAll().then(response => {
+      this.setState({allBooks : response})
+    })
+    this.updateShelf = this.updateShelf.bind(this)
   }
 
-  componentDidMount() {
-    this.getAllBooks()
+  componentWillUpdate(nextProps, nextState) {
   }
 
   getAllBooks() {
@@ -30,8 +24,19 @@ class BooksApp extends Component {
     })
   }
 
+  updateShelf(book, shelfValue) {
+    console.log(shelfValue, book.id)
+    BooksAPI.update(book, shelfValue).then(response => {
+      this.setState({allBooks : response})
+    })
+  }
+
   render() {
-    console.log(this.state.allBooks)
+    const { allBooks } = this.state
+    console.log(allBooks)
+    if (!allBooks) {
+      return null;
+    }
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -40,13 +45,18 @@ class BooksApp extends Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-                <BookShelf bookList={this.state.allBooks} />
+                <BookShelf bookList={allBooks} updateShelf={this.updateShelf}/>
             </div>
-            <Search />
+            <div className="open-search">
+              <Link 
+                  to='/search'>
+                  Add a book
+              </Link>
+            </div>
           </div>
         )} />
         <Route path='/search' render={() => (
-          <SearchPage />
+          <SearchPage updateShelf={this.updateShelf}/>
         )} />
       </div>
     )

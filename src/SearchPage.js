@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Books from './Books'
 
@@ -6,57 +7,47 @@ class SearchPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            maxResults: 20,
             bookList: []
         }
         this.searchBooks = this.searchBooks.bind(this)
-        this.redirectPage = this.redirectPage.bind(this)
     }
-    
+
     searchBooks(e) {
-        let {maxResults} = this.state
+        let { maxResults } = this.props
         let searchIndex = e.target.value
         if (searchIndex.length)
             BooksAPI.search(searchIndex, maxResults)
                 .then((response) => {
-                    console.log(response)
-                    this.setState({bookList: response})
+                    this.setState({ bookList: response })
                 })
         else
-            this.setState({bookList: []})
-    }
-
-    redirectPage() {
-
+            this.setState({ bookList: [] })
     }
 
     render() {
         let { bookList } = this.state
+        let { updateShelf } = this.props
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() => this.redirectPage()}>Close</a>
+                    <Link to='/' className="close-search">Close</Link>
                     <div className="search-books-input-wrapper">
-                        {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
-                        <input type="text" placeholder="Search by title or author" onChange={(e) => this.searchBooks(e)}/>
-
+                        <input type="text" placeholder="Search by title or author"
+                            onChange={(e) => this.searchBooks(e)} />
                     </div>
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        <Books shelvedBooks={bookList}/>
+                        <Books shelvedBooks={bookList} updateShelf={updateShelf}/>
                     </ol>
                 </div>
             </div>
         )
     }
+}
+
+SearchPage.defaultProps = {
+    maxResults : 15
 }
 
 export default SearchPage
