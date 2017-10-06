@@ -15,9 +15,6 @@ class BooksApp extends Component {
     this.updateShelf = this.updateShelf.bind(this)
   }
 
-  componentWillUpdate(nextProps, nextState) {
-  }
-
   getAllBooks() {
     BooksAPI.getAll().then(response => {
       this.setState({allBooks : response})
@@ -25,10 +22,25 @@ class BooksApp extends Component {
   }
 
   updateShelf(book, shelfValue) {
-    console.log(shelfValue, book.id)
-    BooksAPI.update(book, shelfValue).then(response => {
-      this.setState({allBooks : response})
+    const { allBooks } = this.state
+    let updatedBooks = Object.assign([], allBooks)
+
+    const bookIndex = allBooks.findIndex((bIndex) => {
+      return bIndex.id === book.id
     })
+    console.log(allBooks, updatedBooks)
+    if(bookIndex < 0) {
+      const updatedBook = Object.assign({}, book)
+      updatedBook.shelf = shelfValue
+      updatedBooks.push(updatedBook)
+    } else {
+      updatedBooks[bookIndex] = Object.assign({}, updatedBooks[bookIndex])
+      updatedBooks[bookIndex].shelf = shelfValue
+    }
+    
+    BooksAPI.update(book, shelfValue).then(
+      this.setState({allBooks: updatedBooks})
+    )
   }
 
   render() {
