@@ -33,7 +33,7 @@ class BooksApp extends Component {
 
   render() {
     const { allBooks } = this.state
-    console.log(allBooks)
+    console.log(allBooks,'Here')
     if (!allBooks) {
       return null;
     }
@@ -56,7 +56,7 @@ class BooksApp extends Component {
           </div>
         )} />
         <Route path='/search' render={() => (
-          <SearchPage updateShelf={this.updateShelf}/>
+          <SearchPage currentBooks={allBooks} updateShelf={this.updateShelf}/>
         )} />
       </div>
     )

@@ -13,8 +13,6 @@ class BookshelfOptions extends Component {
         updateShelf(currentBook, shelfValue)
     }
 
-
-
     render() {
         const {currentBook} = this.props
         return (

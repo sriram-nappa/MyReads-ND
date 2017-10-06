@@ -7,18 +7,19 @@ class SearchPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            bookList: []
+            bookList: [],
+            currentBooks: []
         }
         this.searchBooks = this.searchBooks.bind(this)
     }
 
     searchBooks(e) {
-        let { maxResults } = this.props
+        let { maxResults, currentBooks } = this.props
         let searchIndex = e.target.value
         if (searchIndex.length)
             BooksAPI.search(searchIndex, maxResults)
                 .then((response) => {
-                    this.setState({ bookList: response })
+                    this.setState({ bookList: response,  currentBooks: currentBooks})
                 })
         else
             this.setState({ bookList: [] })

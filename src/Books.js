@@ -31,7 +31,7 @@ class Books extends Component {
     render() {
         let { shelvedBooks } = this.props
         if (shelvedBooks && shelvedBooks.length) {
-            console.log('In')
+            console.log('In',shelvedBooks)
             return (
                 <ol className="books-grid">                
                     {this.renderBooks(shelvedBooks)}

@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import Books from './Books'
 class BookShelf extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            shelvedBooks: {},
+            currentBooks: []
+        }
+    }
 
-    state = {
-        shelvedBooks: {}
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
     }
 
     componentWillMount() {
@@ -16,10 +23,15 @@ class BookShelf extends Component {
             'wantToRead': [],
             'read': []
         }
+        
         bookList.forEach((book) => {
             shelvedBooks[book.shelf].push(book)
         })
-        this.setState({shelvedBooks})
+
+        this.setState({
+                    shelvedBooks : shelvedBooks,
+                    currentBooks : bookList     
+                })
     }
 
     render() {
