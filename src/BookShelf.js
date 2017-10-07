@@ -8,12 +8,11 @@ class BookShelf extends Component {
             currentBooks: []
         }
     }
-
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
+        console.log(nextProps, this.props)
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.filterBookshelf(this.props.bookList)
     }
 
@@ -37,7 +36,6 @@ class BookShelf extends Component {
     render() {
         let {shelvedBooks} = this.state
         let {updateShelf} = this.props
-        console.log(shelvedBooks)
         return (
             <div className="bookshelf">
                 {/* Currently Reading, Want To Read, Read */}

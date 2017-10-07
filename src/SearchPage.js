@@ -7,8 +7,7 @@ class SearchPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            bookList: [],
-            currentBooks: []
+            bookList: []
         }
         this.searchBooks = this.searchBooks.bind(this)
     }
@@ -16,13 +15,31 @@ class SearchPage extends Component {
     searchBooks(e) {
         let { maxResults, currentBooks } = this.props
         let searchIndex = e.target.value
-        if (searchIndex.length)
-            BooksAPI.search(searchIndex, maxResults)
+        if(searchIndex === '') {
+            return;
+        }
+        BooksAPI.search(searchIndex, maxResults)
                 .then((response) => {
-                    this.setState({ bookList: response,  currentBooks: currentBooks})
+                    if (response && response.length) {
+                        const books = response.map((book) => {
+                            const searchBook = currentBooks.find((curBook) => 
+                                curBook.id === book.id
+                            )
+                            const bookShelf = searchBook ? searchBook.shelf : 'none'
+
+                            return {
+                                id : book.id,
+                                authors: book.authors,
+                                shelf: bookShelf,
+                                title: book.title,
+                                imageLinks: {
+                                    thumbnail: book.imageLinks ? book.imageLinks.thumbnail : ''
+                                }
+                            }
+                        })
+                        this.setState({ bookList: books })
+                    }
                 })
-        else
-            this.setState({ bookList: [] })
     }
 
     render() {
@@ -48,7 +65,7 @@ class SearchPage extends Component {
 }
 
 SearchPage.defaultProps = {
-    maxResults : 15
+    maxResults : 10
 }
 
 export default SearchPage
