@@ -9,10 +9,10 @@ class BookShelf extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps, this.props)
+        this.filterBookshelf(nextProps.bookList)
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.filterBookshelf(this.props.bookList)
     }
 
@@ -24,7 +24,8 @@ class BookShelf extends Component {
         }
         
         bookList.forEach((book) => {
-            shelvedBooks[book.shelf].push(book)
+            if(book.shelf !== 'none')
+                shelvedBooks[book.shelf].push(book)
         })
 
         this.setState({

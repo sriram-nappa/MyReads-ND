@@ -28,7 +28,6 @@ class BooksApp extends Component {
     const bookIndex = allBooks.findIndex((bIndex) => {
       return bIndex.id === book.id
     })
-    console.log(allBooks, updatedBooks)
     if(bookIndex < 0) {
       const updatedBook = Object.assign({}, book)
       updatedBook.shelf = shelfValue
@@ -45,7 +44,6 @@ class BooksApp extends Component {
 
   render() {
     const { allBooks } = this.state
-    console.log(allBooks,'Here')
     if (!allBooks) {
       return null;
     }

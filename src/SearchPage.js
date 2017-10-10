@@ -12,6 +12,12 @@ class SearchPage extends Component {
         this.searchBooks = this.searchBooks.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            bookList: nextProps.currentBooks
+        })
+    }
+
     searchBooks(e) {
         let { maxResults, currentBooks } = this.props
         let searchIndex = e.target.value

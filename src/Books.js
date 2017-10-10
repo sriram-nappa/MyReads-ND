@@ -7,9 +7,7 @@ class Books extends Component {
     renderBooks(shelvedBooks) {
         let booksArr = []
         let {updateShelf} = this.props
-        booksArr = shelvedBooks.sort((a, b) => {
-            return a.title > b.title
-        }).map(book => (
+        booksArr = shelvedBooks.map(book => (
             <li key={book.id}>
                 <div className="book" key={book.id}>
                     <div className="book-top">
