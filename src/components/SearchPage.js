@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from '../utils/BooksAPI'
 import Books from './Books'
 
 class SearchPage extends Component {
@@ -22,6 +22,7 @@ class SearchPage extends Component {
         let { maxResults, currentBooks } = this.props
         let searchIndex = e.target.value
         if(searchIndex === '') {
+            this.setState({ bookList: [] })
             return;
         }
         BooksAPI.search(searchIndex, maxResults)
