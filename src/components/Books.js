@@ -11,7 +11,9 @@ class Books extends Component {
             <li key={book.id}>
                 <div className="book" key={book.id}>
                     <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail.length ? book.imageLinks.thumbnail : this.props.noimageURL})` }}></div>
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail.length ? book.imageLinks.thumbnail : this.props.noimageURL})` }}>
+
+                        </div>
                         <BookshelfOptions currentBook={book} updateShelf={updateShelf}/>
                     </div>
                     <div className="book-title">{book.title}</div>

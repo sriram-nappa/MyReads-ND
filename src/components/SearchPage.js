@@ -7,7 +7,8 @@ class SearchPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            bookList: []
+            bookList: [],
+            preload: false
         }
         this.searchBooks = this.searchBooks.bind(this)
     }
@@ -25,6 +26,7 @@ class SearchPage extends Component {
             this.setState({ bookList: [] })
             return;
         }
+        this.setState({preload: true})
         BooksAPI.search(searchIndex, maxResults)
                 .then((response) => {
                     if (response && response.length) {
@@ -44,13 +46,13 @@ class SearchPage extends Component {
                                 }
                             }
                         })
-                        this.setState({ bookList: books })
+                        this.setState({ bookList: books, preload: false })
                     }
                 })
     }
 
     render() {
-        let { bookList } = this.state
+        let { bookList, preload } = this.state
         let { updateShelf } = this.props
         return (
             <div className="search-books">
@@ -61,11 +63,13 @@ class SearchPage extends Component {
                             onChange={(e) => this.searchBooks(e)} />
                     </div>
                 </div>
-                <div className="search-books-results">
-                    <ol className="books-grid">
-                        <Books shelvedBooks={bookList} updateShelf={updateShelf}/>
-                    </ol>
-                </div>
+                { preload ? <div className="book-loader"></div>
+                    : <div className="search-books-results">
+                            <ol className="books-grid">
+                                <Books shelvedBooks={bookList} updateShelf={updateShelf}/>
+                            </ol>
+                        </div>
+                }
             </div>
         )
     }

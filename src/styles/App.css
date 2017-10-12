@@ -150,8 +150,8 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #387fde;
-  background-image: url('../icons/arrow-drop-down.svg');
+  background: rgb(230, 230, 230);
+  background-image: url('../icons/drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
@@ -174,4 +174,13 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+.book-loader {
+  background-image: url(../icons/book-loader.gif);
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  top: 50%;
+  left: 50%;
 }
